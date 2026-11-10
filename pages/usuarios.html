@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Usuários - Almoxarifado</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <main id="conteudo" class="app-main" tabindex="-1">
+      <section class="screen-card" aria-labelledby="tituloUsuarios">
+        <div class="screen-toolbar"><h2 id="tituloUsuarios">Usuários</h2>
+          <button class="btn btn-primary" id="abrirModalUsuario" type="button">Novo usuário</button></div>
+        <p id="usuarioFeedback" class="feedback" aria-live="polite"></p>
+        <div class="table-wrap" id="usuariosLista"></div>
+      </section>
+    </main>
+    <div class="modal-overlay hidden" id="usuarioModal" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="usuarioModalTitulo">
+        <button class="modal-close" type="button" data-fechar aria-label="Fechar janela">&times;</button>
+        <h2 class="modal-title" id="usuarioModalTitulo">Novo usuário</h2>
+        <form id="usuarioForm" class="form">
+          <input type="hidden" id="usuarioId" />
+          <p id="usuarioFormErro" class="feedback" role="alert"></p>
+          <div class="form-group"><label for="usuarioNome">Nome</label><input type="text" id="usuarioNome" maxlength="150" required /></div>
+          <div class="form-group"><label for="usuarioEmail">E-mail</label><input type="email" id="usuarioEmail" maxlength="200" autocomplete="off" required /></div>
+          <div class="form-group" id="grupoSenha"><label for="usuarioSenha">Senha</label><input type="password" id="usuarioSenha" autocomplete="new-password" aria-describedby="dicaSenha" />
+            <span class="dica" id="dicaSenha">Mínimo de 8 caracteres, com letras e números.</span></div>
+          <div class="form-group"><label for="usuarioPerfil">Perfil</label><select id="usuarioPerfil"><option value="Colaborador">Colaborador</option><option value="Gestor">Gestor</option><option value="Admin">Admin</option></select></div>
+          <div class="form-actions"><button class="btn" type="button" data-fechar>Cancelar</button><button class="btn btn-primary" type="submit">Salvar</button></div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-overlay hidden" id="senhaModal" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="senhaModalTitulo">
+        <button class="modal-close" type="button" data-fechar aria-label="Fechar janela">&times;</button>
+        <h2 class="modal-title" id="senhaModalTitulo">Redefinir senha</h2>
+        <form id="senhaForm" class="form">
+          <input type="hidden" id="senhaUsuarioId" />
+          <p id="senhaFormErro" class="feedback" role="alert"></p>
+          <div class="form-group"><label for="novaSenha">Nova senha</label><input type="password" id="novaSenha" autocomplete="new-password" required /></div>
+          <div class="form-actions"><button class="btn" type="button" data-fechar>Cancelar</button><button class="btn btn-primary" type="submit">Redefinir</button></div>
+        </form>
+      </div>
+    </div>
+    <script src="/config.js"></script>
+    <script src="/js/core/app.js"></script>
+    <script src="/js/services/apiService.js"></script>
+    <script src="/js/dtos/dtos.js"></script>
+    <script src="/js/services/services.js"></script>
+    <script src="/js/pages/usuarios.js"></script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Tarefas - Almoxarifado</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <main id="conteudo" class="app-main" tabindex="-1">
+      <section class="screen-card" aria-labelledby="tituloTarefas">
+        <div class="screen-toolbar">
+          <h2 id="tituloTarefas">Tarefas</h2>
+          <button class="btn btn-primary hidden" id="abrirModalTarefa" type="button">Nova tarefa</button>
+        </div>
+        <form class="filtros" id="filtros" role="search" aria-label="Filtrar tarefas">
+          <div><label for="fBusca">Buscar</label><input type="search" id="fBusca" maxlength="100" /></div>
+          <div><label for="fStatus">Status</label><select id="fStatus"><option value="">Todos</option><option value="Pendente">Pendente</option><option value="EmAndamento">Em andamento</option><option value="Concluida">Concluída</option></select></div>
+          <div><label for="fPrioridade">Prioridade</label><select id="fPrioridade"><option value="">Todas</option><option value="Baixa">Baixa</option><option value="Media">Média</option><option value="Alta">Alta</option><option value="Urgente">Urgente</option></select></div>
+          <div id="fColabWrap" class="hidden"><label for="fColab">Pessoa responsável</label><select id="fColab"></select></div>
+          <div><button class="btn btn-primary" type="submit">Aplicar filtros</button></div>
+        </form>
+        <p id="tarefaFeedback" class="feedback" aria-live="polite"></p>
+        <div class="table-wrap" id="tarefasList"></div>
+        <nav class="paginacao" aria-label="Paginação">
+          <button class="btn" id="pgAnterior" type="button">Anterior</button>
+          <span id="pgInfo" aria-live="polite"></span>
+          <button class="btn" id="pgProxima" type="button">Próxima</button>
+        </nav>
+      </section>
+    </main>
+    <div class="modal-overlay hidden" id="tarefaModal" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tarefaModalTitulo">
+        <button class="modal-close" type="button" data-fechar aria-label="Fechar janela">&times;</button>
+        <h2 class="modal-title" id="tarefaModalTitulo">Nova tarefa</h2>
+        <form id="tarefaForm" class="form">
+          <input type="hidden" id="tarefaId" />
+          <p id="tarefaFormErro" class="feedback" role="alert"></p>
+          <div class="form-group"><label for="tarefaTitulo">Título</label><input type="text" id="tarefaTitulo" maxlength="200" required /></div>
+          <div class="form-group"><label for="tarefaDescricao">Descrição</label><textarea id="tarefaDescricao" rows="4" maxlength="2000"></textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label for="tarefaPrioridade">Prioridade</label><select id="tarefaPrioridade"><option value="Baixa">Baixa</option><option value="Media" selected>Média</option><option value="Alta">Alta</option><option value="Urgente">Urgente</option></select></div>
+            <div class="form-group"><label for="tarefaPrazo">Prazo</label><input type="date" id="tarefaPrazo" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="tarefaColaborador">Pessoa responsável</label><select id="tarefaColaborador"></select></div>
+            <div class="form-group"><label for="tarefaEquipe">Equipe</label><select id="tarefaEquipe"></select></div>
+          </div>
+          <div class="form-actions"><button class="btn" type="button" data-fechar>Cancelar</button><button class="btn btn-primary" type="submit">Salvar tarefa</button></div>
+        </form>
+      </div>
+    </div>
+    <script src="/config.js"></script>
+    <script src="/js/core/app.js"></script>
+    <script src="/js/services/apiService.js"></script>
+    <script src="/js/dtos/dtos.js"></script>
+    <script src="/js/services/services.js"></script>
+    <script src="/js/pages/tarefas.js"></script>
+  </body>
+</html>

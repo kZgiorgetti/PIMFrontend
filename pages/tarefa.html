@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Detalhe da tarefa - Almoxarifado</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <main id="conteudo" class="app-main" tabindex="-1">
+      <div class="screen-toolbar page-heading">
+        <a class="btn page-back" href="/pages/tarefas.html">&larr; Voltar para as tarefas</a>
+        <h2 id="detTitulo">Detalhe da tarefa</h2>
+      </div>
+      <p id="detFeedback" class="feedback" aria-live="polite"></p>
+      <section class="screen-card stack" id="detalhe" aria-labelledby="detTitulo"></section>
+      <div class="form-actions detail-actions">
+        <button class="btn btn-primary" type="submit" form="taskChangesForm">Confirmar</button>
+        <a class="btn" href="/pages/tarefas.html">Cancelar</a>
+      </div>
+    </main>
+
+    <script src="/config.js"></script>
+    <script src="/js/core/app.js"></script>
+    <script src="/js/services/apiService.js"></script>
+    <script src="/js/dtos/dtos.js"></script>
+    <script src="/js/services/services.js"></script>
+    <script src="/js/pages/tarefa.js"></script>
+  </body>
+</html>

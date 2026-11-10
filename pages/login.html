@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Entrar - Almoxarifado</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+    <main id="conteudo" class="app-main" tabindex="-1">
+      <section class="screen-card login-card" aria-labelledby="loginTitulo">
+        <h1 id="loginTitulo">Almoxarifado</h1>
+        <p>Entre com o seu e-mail e a sua senha.</p>
+        <p id="loginFeedback" class="feedback" role="status" aria-live="polite"></p>
+        <form id="loginForm" class="form" novalidate>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" autocomplete="username" required />
+          </div>
+          <div class="form-group">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" autocomplete="current-password" required />
+          </div>
+          <button class="btn btn-primary" type="submit" id="btnEntrar">Entrar</button>
+        </form>
+      </section>
+    </main>
+    <script src="/config.js"></script>
+    <script src="/js/core/app.js"></script>
+    <script src="/js/services/apiService.js"></script>
+    <script src="/js/services/services.js"></script>
+    <script src="/js/pages/login.js"></script>
+  </body>
+</html>

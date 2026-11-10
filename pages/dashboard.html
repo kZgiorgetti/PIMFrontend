@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Painel - Almoxarifado</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <main id="conteudo" class="app-main" tabindex="-1">
+      <section class="screen-card stack" aria-labelledby="tituloPainel">
+        <h2 id="tituloPainel">Painel de tarefas</h2>
+        <p id="painelFeedback" class="feedback" aria-live="polite"></p>
+        <div class="grid-cards" id="totais" aria-label="Totais por status"></div>
+        <h3>Por colaborador</h3>
+        <ul id="porColaborador" class="lista-simples"></ul>
+        <h3>Tarefas atrasadas</h3>
+        <div id="atrasadas"></div>
+      </section>
+    </main>
+
+    <script src="/config.js"></script>
+    <script src="/js/core/app.js"></script>
+    <script src="/js/services/apiService.js"></script>
+    <script src="/js/dtos/dtos.js"></script>
+    <script src="/js/services/services.js"></script>
+    <script src="/js/pages/dashboard.js"></script>
+  </body>
+</html>

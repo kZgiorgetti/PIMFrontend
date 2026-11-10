@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Equipes - Almoxarifado</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <main id="conteudo" class="app-main" tabindex="-1">
+      <section class="screen-card" aria-labelledby="tituloEquipes">
+        <div class="screen-toolbar"><h2 id="tituloEquipes">Equipes</h2>
+          <button class="btn btn-primary" id="abrirModalEquipe" type="button">Nova equipe</button></div>
+        <p id="equipeFeedback" class="feedback" aria-live="polite"></p>
+        <div class="stack" id="equipesLista"></div>
+      </section>
+    </main>
+    <div class="modal-overlay hidden" id="equipeModal" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="equipeModalTitulo">
+        <button class="modal-close" type="button" data-fechar aria-label="Fechar janela">&times;</button>
+        <h2 class="modal-title" id="equipeModalTitulo">Nova equipe</h2>
+        <form id="equipeForm" class="form">
+          <input type="hidden" id="equipeId" />
+          <p id="equipeFormErro" class="feedback" role="alert"></p>
+          <div class="form-group"><label for="equipeNome">Nome</label><input type="text" id="equipeNome" maxlength="100" required /></div>
+          <div class="form-group"><label for="equipeDescricao">Descrição (opcional)</label><textarea id="equipeDescricao" rows="3" maxlength="500"></textarea></div>
+          <div class="form-actions"><button class="btn" type="button" data-fechar>Cancelar</button><button class="btn btn-primary" type="submit">Salvar</button></div>
+        </form>
+      </div>
+    </div>
+    <script src="/config.js"></script>
+    <script src="/js/core/app.js"></script>
+    <script src="/js/services/apiService.js"></script>
+    <script src="/js/dtos/dtos.js"></script>
+    <script src="/js/services/services.js"></script>
+    <script src="/js/pages/equipes.js"></script>
+  </body>
+</html>

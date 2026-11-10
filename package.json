@@ -1,0 +1,9 @@
+{
+  "name": "pim-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npx --yes http-server . -p 8080 -c-1",
+    "check": "node scripts/check.js"
+  }
+}

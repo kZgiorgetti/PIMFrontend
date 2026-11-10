@@ -1,0 +1,8 @@
+# O front fica em http://localhost:8080 e fala com a API em API_URL (suba o pim-backend antes).
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      API_URL: ${API_URL:-http://localhost:5000}
