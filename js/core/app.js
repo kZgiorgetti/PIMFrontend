@@ -9,9 +9,9 @@ var App = (function () {
     { id: "usuarios", rotulo: "Usuários", href: "/pages/usuarios.html", papeis: ["Admin"] },
   ];
   var STATUS = {
-    Pendente: { icone: "○", rotulo: "Pendente" },
-    EmAndamento: { icone: "◐", rotulo: "Em andamento" },
-    Concluida: { icone: "✔", rotulo: "Concluída" },
+    Pendente: { icone: "clock", rotulo: "Pendente" },
+    EmAndamento: { icone: "arrow-up-to-line", rotulo: "Em andamento" },
+    Concluida: { icone: "check", rotulo: "Concluída" },
   };
   var PRIORIDADE = { Baixa: "Baixa", Media: "Média", Alta: "Alta", Urgente: "Urgente" };
   var focoAnterior = null;
@@ -42,8 +42,8 @@ var App = (function () {
     return new Date(iso).toLocaleString("pt-BR");
   }
   function statusBadge(status) {
-    var s = STATUS[status] || { icone: "?", rotulo: status };
-    return '<span class="badge ' + esc(status) + '"><span aria-hidden="true">' + s.icone + "</span> " + esc(s.rotulo) + "</span>";
+    var s = STATUS[status] || { icone: "circle-exclamation-point", rotulo: status };
+    return '<span class="badge ' + esc(status) + '"><span class="icon icon-' + s.icone + '" aria-hidden="true"></span> ' + esc(s.rotulo) + "</span>";
   }
 
   // ---------- preferências de acessibilidade (por usuário) ----------
@@ -179,7 +179,7 @@ var App = (function () {
       '<button type="button" class="btn-tool" id="btnContraste" aria-pressed="' + (p.contraste ? "true" : "false") + '">Alto contraste</button>' +
       '<button type="button" class="btn-tool" id="btnFonteMenos" aria-label="Diminuir tamanho da letra">A−</button>' +
       '<button type="button" class="btn-tool" id="btnFonteMais" aria-label="Aumentar tamanho da letra">A+</button>' +
-      '<button type="button" class="btn-tool" id="btnSair">Sair</button></div></div></header>';
+      '<button type="button" class="btn-tool" id="btnSair"><span class="icon icon-logout" aria-hidden="true"></span>Sair</button></div></div></header>';
     document.getElementById("btnContraste").addEventListener("click", function (e) {
       var q = lerPrefs(); q.contraste = !q.contraste; salvarPrefs(q);
       e.currentTarget.setAttribute("aria-pressed", q.contraste ? "true" : "false");

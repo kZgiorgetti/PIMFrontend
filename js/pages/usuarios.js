@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         cache.map(function (x) {
           var proprio = x.id === u.id;
           return "<tr><td>" + App.esc(x.nome) + "</td><td>" + App.esc(x.email) + "</td><td>" + App.esc(x.perfil) + "</td><td>" + (x.ativo ? "✔ Ativo" : "✖ Inativo") + "</td><td>" +
-            '<button class="actions-trigger" type="button" data-actions-trigger="acoesUsuario' + x.id + '">Ações <span aria-hidden="true">▾</span></button><div class="actions-dropdown" id="acoesUsuario' + x.id + '" popover="manual">' +
+            '<button class="actions-trigger" type="button" data-actions-trigger="acoesUsuario' + x.id + '">Ações <span class="icon icon-chevron-down" aria-hidden="true"></span></button><div class="actions-dropdown" id="acoesUsuario' + x.id + '" popover="manual">' +
             '<button type="button" data-editar="' + x.id + '" aria-label="Editar ' + App.esc(x.nome) + '">Editar</button>' +
             '<button type="button" data-senha="' + x.id + '" aria-label="Redefinir senha de ' + App.esc(x.nome) + '">Redefinir senha</button>' +
             (proprio ? "" : '<hr><button class="' + (x.ativo ? "action-danger" : "") + '" type="button" data-ativo="' + x.id + ":" + (x.ativo ? "0" : "1") + '" aria-label="' + (x.ativo ? "Inativar " : "Ativar ") + App.esc(x.nome) + '">' + (x.ativo ? "Inativar" : "Ativar") + "</button>") +

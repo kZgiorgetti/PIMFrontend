@@ -44,14 +44,14 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   function linha(t) {
-    var acoes = '<button class="actions-trigger" type="button" data-actions-trigger="acoesTarefa' + t.id + '">Ações <span aria-hidden="true">▾</span></button><div class="actions-dropdown" id="acoesTarefa' + t.id + '" popover="manual">' +
+    var acoes = '<button class="actions-trigger" type="button" data-actions-trigger="acoesTarefa' + t.id + '">Ações <span class="icon icon-chevron-down" aria-hidden="true"></span></button><div class="actions-dropdown" id="acoesTarefa' + t.id + '" popover="manual">' +
       '<a href="/pages/tarefa.html?id=' + t.id + '">Ver detalhes</a>';
     if (t.status !== "Concluida") acoes += '<button type="button" data-concluir="' + t.id + '" aria-label="Concluir tarefa ' + App.esc(t.titulo) + '">Concluir</button>';
     if (gestor) acoes += '<button type="button" data-editar="' + t.id + '" aria-label="Editar tarefa ' + App.esc(t.titulo) + '">Editar</button>' +
       '<hr><button class="action-danger" type="button" data-excluir="' + t.id + '" aria-label="Excluir tarefa ' + App.esc(t.titulo) + '">Excluir</button>';
     acoes += '</div>';
     return '<tr><td><strong>' + App.esc(t.titulo) + '</strong></td><td>' + App.esc(t.colaboradorNome || "Sem responsável") + '</td><td>' +
-      App.esc(App.PRIORIDADE[t.prioridade]) + '</td><td>' + App.statusBadge(t.status) + (t.atrasada ? ' <span class="badge atrasada"><span aria-hidden="true">!</span> Atrasada</span>' : "") +
+      App.esc(App.PRIORIDADE[t.prioridade]) + '</td><td>' + App.statusBadge(t.status) + (t.atrasada ? ' <span class="badge atrasada"><span class="icon icon-circle-exclamation-point" aria-hidden="true"></span> Atrasada</span>' : "") +
       '</td><td>' + App.fmtData(t.dataPrazo) + '</td><td>' + acoes + '</td></tr>';
   }
 

@@ -16,11 +16,11 @@
           <button class="btn btn-primary hidden" id="abrirModalTarefa" type="button">Nova tarefa</button>
         </div>
         <form class="filtros" id="filtros" role="search" aria-label="Filtrar tarefas">
-          <div><label for="fBusca">Buscar</label><input type="search" id="fBusca" maxlength="100" /></div>
+          <div><label for="fBusca">Buscar</label><div class="search-control"><span class="icon icon-search" aria-hidden="true"></span><input type="search" id="fBusca" maxlength="100" /></div></div>
           <div><label for="fStatus">Status</label><select id="fStatus"><option value="">Todos</option><option value="Pendente">Pendente</option><option value="EmAndamento">Em andamento</option><option value="Concluida">Concluída</option></select></div>
           <div><label for="fPrioridade">Prioridade</label><select id="fPrioridade"><option value="">Todas</option><option value="Baixa">Baixa</option><option value="Media">Média</option><option value="Alta">Alta</option><option value="Urgente">Urgente</option></select></div>
           <div id="fColabWrap" class="hidden"><label for="fColab">Pessoa responsável</label><select id="fColab"></select></div>
-          <div><button class="btn btn-primary" type="submit">Aplicar filtros</button></div>
+          <div><button class="btn btn-primary" type="submit" aria-label="Aplicar filtros" title="Aplicar filtros"><span class="icon icon-search" aria-hidden="true"></span></button></div>
         </form>
         <p id="tarefaFeedback" class="feedback" aria-live="polite"></p>
         <div class="table-wrap" id="tarefasList"></div>
@@ -48,7 +48,7 @@
             <div class="form-group"><label for="tarefaColaborador">Pessoa responsável</label><select id="tarefaColaborador"></select></div>
             <div class="form-group"><label for="tarefaEquipe">Equipe</label><select id="tarefaEquipe"></select></div>
           </div>
-          <div class="form-actions"><button class="btn" type="button" data-fechar>Cancelar</button><button class="btn btn-primary" type="submit">Salvar tarefa</button></div>
+          <div class="form-actions"><button class="btn btn-danger" type="button" data-fechar>Cancelar</button><button class="btn btn-primary" type="submit">Salvar tarefa</button></div>
         </form>
       </div>
     </div>

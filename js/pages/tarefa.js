@@ -26,24 +26,24 @@ document.addEventListener("DOMContentLoaded", async function () {
     }).join("");
     box.innerHTML =
       '<div>' + App.statusBadge(t.status) +
-      (t.atrasada ? ' <span class="badge atrasada"><span aria-hidden="true">!</span> Atrasada</span>' : "") + "</div>" +
+      (t.atrasada ? ' <span class="badge atrasada"><span class="icon icon-circle-exclamation-point" aria-hidden="true"></span> Atrasada</span>' : "") + "</div>" +
       "<p>" + App.esc(t.descricao || "Sem descrição.") + "</p>" +
       '<div class="task-meta"><span>Responsável: ' + App.esc(t.colaboradorNome || "Sem responsável") + "</span><span>Equipe: " + App.esc(t.equipeNome || "—") +
       "</span><span>Prioridade: " + App.esc(App.PRIORIDADE[t.prioridade]) + "</span><span>Prazo: " + App.fmtData(t.dataPrazo) + "</span></div>" +
       '<form id="taskChangesForm" class="form"><div class="form-row"><div class="form-group"><label for="novoStatus">Status</label><select id="novoStatus">' + statusOpts + "</select></div>" +
       (gestor ? '<div class="form-group"><label for="novoResp">Pessoa responsável</label><select id="novoResp">' +
         App.opcoes(colaboradores, "id", "nome", "Sem responsável", t.colaboradorId) + '</select></div>' : "") + "</div></form>" +
-      '<div class="detalhe-grid"><section aria-labelledby="comTitulo"><h3 id="comTitulo">Comentários</h3><div class="stack">' +
-      (comentarios.length ? comentarios.map(function (c) {
-        return '<div class="comentario"><small>' + App.esc(c.usuarioNome || "Usuário") + " · " + App.fmtDataHora(c.dataCriacao) + "</small><p>" + App.esc(c.texto) + "</p></div>";
-      }).join("") : '<p class="empty-state">Nenhum comentário ainda.</p>') +
-      '<form id="comentarioForm" class="form"><div class="form-group"><label for="comentarioTexto">Novo comentário</label><textarea id="comentarioTexto" rows="3" maxlength="1000" required></textarea></div>' +
-      '<div class="form-actions"><button class="btn btn-primary" type="submit">Comentar</button></div></form></div></section>' +
-      '<section aria-labelledby="histTitulo"><h3 id="histTitulo">Histórico de status</h3>' +
+      '<section class="detail-section" aria-labelledby="histTitulo"><h3 id="histTitulo">Histórico de status</h3>' +
       (historico.length ? '<ol class="lista-simples">' + historico.map(function (h) {
         return "<li>" + App.fmtDataHora(h.dataAlteracao) + ": " + App.esc(App.STATUS[h.statusAnterior].rotulo) + " → " + App.esc(App.STATUS[h.statusNovo].rotulo) +
           (h.usuarioId ? " (usuário #" + h.usuarioId + ")" : "") + "</li>";
-      }).join("") + "</ol>" : '<p class="empty-state">Sem alterações de status.</p>') + "</section></div>";
+      }).join("") + "</ol>" : '<p class="empty-state">Sem alterações de status.</p>') + "</section>" +
+      '<section class="detail-section" aria-labelledby="comTitulo"><h3 id="comTitulo">Comentários</h3><div class="stack">' +
+      (comentarios.length ? comentarios.map(function (c) {
+        return '<div class="comentario"><small>' + App.esc(c.usuarioNome || "Usuário") + " · " + App.fmtDataHora(c.dataCriacao) + "</small><p>" + App.esc(c.texto) + "</p></div>";
+      }).join("") : '<p class="empty-state">Nenhum comentário ainda.</p>') + "</div></section>" +
+      '<section class="detail-section" aria-label="Adicionar comentário"><form id="comentarioForm" class="form"><div class="form-group"><label for="comentarioTexto">Novo comentário</label><textarea id="comentarioTexto" rows="3" maxlength="1000" required></textarea></div>' +
+      '<div class="form-actions"><button class="btn btn-primary" type="submit">Comentar</button></div></form></section>';
 
     document.getElementById("taskChangesForm").addEventListener("submit", async function (e) {
       e.preventDefault();

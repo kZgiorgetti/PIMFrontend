@@ -11,14 +11,14 @@
     <div id="app-header"></div>
     <main id="conteudo" class="app-main" tabindex="-1">
       <div class="screen-toolbar page-heading">
-        <a class="btn page-back" href="/pages/tarefas.html">&larr; Voltar para as tarefas</a>
+        <a class="page-back" href="/pages/tarefas.html"><span class="icon icon-chevron-left" aria-hidden="true"></span></a>
         <h2 id="detTitulo">Detalhe da tarefa</h2>
       </div>
       <p id="detFeedback" class="feedback" aria-live="polite"></p>
       <section class="screen-card stack" id="detalhe" aria-labelledby="detTitulo"></section>
       <div class="form-actions detail-actions">
+        <a class="btn btn-danger" href="/pages/tarefas.html">Cancelar</a>
         <button class="btn btn-primary" type="submit" form="taskChangesForm">Confirmar</button>
-        <a class="btn" href="/pages/tarefas.html">Cancelar</a>
       </div>
     </main>
 

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       lista.innerHTML = cache.length ? '<table><caption class="sr-only">Lista de colaboradores</caption><thead><tr><th scope="col">Nome</th><th scope="col">E-mail</th><th scope="col">Cargo</th><th scope="col">Situação</th><th scope="col">Ações</th></tr></thead><tbody>' +
         cache.map(function (c) {
           return "<tr><td>" + App.esc(c.nome) + "</td><td>" + App.esc(c.email || "—") + "</td><td>" + App.esc(c.cargo || "—") + "</td><td>" + (c.ativo ? "Ativo" : "Inativo") +
-            '</td><td><button class="actions-trigger" type="button" data-actions-trigger="acoesColab' + c.id + '">Ações <span aria-hidden="true">▾</span></button><div class="actions-dropdown" id="acoesColab' + c.id + '" popover="manual">' +
+            '</td><td><button class="actions-trigger" type="button" data-actions-trigger="acoesColab' + c.id + '">Ações <span class="icon icon-chevron-down" aria-hidden="true"></span></button><div class="actions-dropdown" id="acoesColab' + c.id + '" popover="manual">' +
             '<button type="button" data-editar="' + c.id + '" aria-label="Editar ' + App.esc(c.nome) + '">Editar</button><hr>' +
             '<button class="action-danger" type="button" data-excluir="' + c.id + '" aria-label="Excluir ' + App.esc(c.nome) + '">Excluir</button></div></td></tr>';
         }).join("") + "</tbody></table>" : '<div class="empty-state">Nenhum colaborador cadastrado.</div>';

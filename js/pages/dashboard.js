@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     resumo.forEach(function (r) { tot.Pendentes += r.pendentes; tot.EmAndamento += r.emAndamento; tot.Concluidas += r.concluidas; });
 
     document.getElementById("totais").innerHTML =
-      card("Pendentes", tot.Pendentes, "○") + card("Em andamento", tot.EmAndamento, "◐") +
-      card("Concluídas", tot.Concluidas, "✔") + card("Atrasadas", atrasadas.length, "!");
+      card("Pendentes", tot.Pendentes, "clock", "pendente") + card("Em andamento", tot.EmAndamento, "arrow-up-to-line", "andamento") +
+      card("Concluídas", tot.Concluidas, "check", "concluida") + card("Atrasadas", atrasadas.length, "circle-exclamation-point", "atrasada");
 
     document.getElementById("porColaborador").innerHTML = resumo.length ? resumo.map(function (r) {
       return "<li><strong>" + App.esc(r.colaboradorNome) + "</strong>: " + r.concluidas + " de " + r.total + " concluídas (" +
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       : '<p class="empty-state">Nenhuma tarefa atrasada. 🎉</p>';
   } catch (err) { App.feedback(fb, err.message, "erro"); }
 
-  function card(rotulo, valor, icone) {
-    return '<div class="stat"><div><span aria-hidden="true">' + icone + "</span> " + rotulo + '</div><div class="valor">' + valor + "</div></div>";
+  function card(rotulo, valor, icone, estado) {
+    return '<div class="stat stat--' + estado + '"><div><span class="icon icon-' + icone + '" aria-hidden="true"></span> ' + rotulo + '</div><div class="valor">' + valor + "</div></div>";
   }
 });
