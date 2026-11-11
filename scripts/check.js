@@ -1,4 +1,4 @@
-// Verificação simples: sintaxe de todos os .js e ausência de scripts/estilos inline (a CSP do nginx os bloqueia).
+// Verificação simples: sintaxe de todos os .js e ausência de scripts/estilos inline.
 const fs = require("fs"), path = require("path"), cp = require("child_process");
 let erros = 0;
 function* arquivos(dir) {

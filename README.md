@@ -1,50 +1,65 @@
 # PIM IV — Frontend web (HTML/CSS/JS)
 
-Aplicação web do sistema de colaboradores e tarefas (UNIP / ADS — PIM IV). Consome a API do repositório **pim-backend** (`/api/v1`).
-Sem framework e sem etapa de build: HTML semântico + JS puro, com login (JWT + refresh automático), navegação por perfil, painel, tarefas (filtros, busca, paginação), detalhe com comentários e histórico, colaboradores, equipes, usuários e acessibilidade (WCAG AA, alto contraste, tamanho de fonte).
-
-```
-index.html · config.js · styles.css
-pages/   login, dashboard, tarefas, tarefa (detalhe), colaboradores, equipes, usuarios
-js/      core/app.js · services/ · dtos/ · pages/
-docker/  nginx (CSP, cabeçalhos) e geração do config.js
-scripts/ check.js (verificação)
-```
+Aplicação web do sistema de colaboradores e tarefas (UNIP / ADS — PIM IV). Consome a API REST do repositório **PIMBackend** (`/api/v1`). É feita com HTML, CSS e JavaScript puro, sem framework e sem etapa de build.
 
 ## Pré-requisitos
-- A **API (pim-backend) rodando** e acessível (padrão: http://localhost:5000). Veja o README dele.
-- **Uma** das opções: Node.js 18+ (para `npm start`) **ou** Docker.
 
-## Passo 1 — Apontar para a API
-A URL fica em `config.js`:
+- Node.js 18+ e npm.
+- API do PIMBackend rodando e acessível. Consulte o README do backend.
+
+## Configuração da API
+
+A URL base é configurada em `config.js`:
+
 ```js
 window.PIM_CONFIG = { apiUrl: "http://localhost:5000" };
 ```
-Altere se a API estiver em outro endereço. **Sem barra no final.**
-(No Docker, esse arquivo é gerado automaticamente a partir da variável `API_URL`.)
 
-## Passo 2 — Rodar
+Use o endereço correspondente ao ambiente (desenvolvimento local, testes ou produção), sem barra no final. Esse é o mecanismo de configuração consumido pela aplicação. Ela não lê `EXPO_PUBLIC_API_URL` nem outra variável de ambiente diretamente; em hospedagem estática, ajuste `config.js` no artefato publicado.
 
-### Opção A — Node (sem Docker)
+O endereço de origem do frontend também precisa estar permitido em `CORS_ORIGINS` no backend. `localhost` e `127.0.0.1` são origens distintas.
+
+## Instalação e execução local
+
 ```bash
-npm start            # serve a pasta em http://localhost:8080
+npm install
+npm start
 ```
-Usa o `http-server` via `npx` (baixado na primeira execução). Qualquer servidor estático na **porta 8080** serve (ex.: `python3 -m http.server 8080`).
 
-### Opção B — Docker (nginx)
+O frontend fica disponível em `http://localhost:8080`. O script `start` executa `http-server` por meio de `npx`; ele não é uma dependência declarada do projeto. Também é possível servir os arquivos com outro servidor estático.
+
+## Produção
+
+O projeto consiste em arquivos estáticos. Não existe comando de build nem de pré-visualização configurado. Para publicar, atualize `config.js` com a URL da API de produção e publique a raiz do projeto, incluindo `index.html`, `config.js`, `styles.css`, `pages/` e `js/`.
+
+Configure a hospedagem para servir os arquivos existentes. As páginas são arquivos em `/pages/*.html`, não rotas de uma SPA; não é necessário fallback geral para `index.html` (mantenha-o apenas se a hospedagem exigir fallback para caminhos desconhecidos).
+
+### Cabeçalhos de segurança
+
+O Nginx usado anteriormente definia esses cabeçalhos. Configure-os na hospedagem ou CDN estática. Ajuste `connect-src` para a origem HTTPS da API do ambiente:
+
+```text
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://api.exemplo.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Referrer-Policy: no-referrer
+```
+
+Configure `Cache-Control: no-store` para `/config.js`, pois seu conteúdo varia por ambiente. Para os demais arquivos, aplique uma política de cache adequada à estratégia de publicação. Um servidor estático local simples não define esses cabeçalhos.
+
+## Verificação
+
 ```bash
-cp .env.example .env          # API_URL=http://localhost:5000
-docker compose up --build     # http://localhost:8080
+npm run check
 ```
-Ou, sem `.env`: `API_URL=http://localhost:5000 docker compose up --build`.
 
-> **Importante:** abra pelo endereço que está no `CORS_ORIGINS` do backend (padrão `http://localhost:8080`).
-> `http://127.0.0.1:8080` é outra origem e será bloqueado pelo CORS. Se usar outra porta/endereço, ajuste `CORS_ORIGINS` no `.env` do backend e reinicie a API.
+Verifica sintaxe JavaScript, atributos inline de estilo/eventos e `lang="pt-BR"` nos HTML.
 
-## Passo 3 — Entrar
-1. Abra http://localhost:8080 → tela de login.
-2. Entre com o **Admin** definido no backend (`ADMIN_EMAIL` / `ADMIN_PASSWORD`).
-3. Em **Usuários**, crie um **Gestor** e um **Colaborador**. O Colaborador só vê e altera as próprias tarefas; saia e entre com ele para conferir.
+## Entrar
+
+1. Abra `http://localhost:8080`.
+2. Entre com o Admin definido no backend (`ADMIN_EMAIL` / `ADMIN_PASSWORD`).
+3. Em Usuários, crie um Gestor e um Colaborador para conferir os respectivos perfis.
 
 | Perfil | Vê no menu |
 |---|---|
@@ -52,19 +67,14 @@ Ou, sem `.env`: `API_URL=http://localhost:5000 docker compose up --build`.
 | Gestor | Painel, Tarefas, Colaboradores, Equipes |
 | Colaborador | Minhas tarefas |
 
-## Verificação
-```bash
-npm run check        # sintaxe dos .js; impede style=/on*= inline (a CSP do nginx os bloqueia); exige lang="pt-BR"
-```
-
 ## Problemas comuns
+
 | Sintoma | Causa / solução |
 |---|---|
-| Console: `blocked by CORS policy` | Origem do front não está em `CORS_ORIGINS` do backend (veja a nota acima) |
-| `Failed to fetch` / `ERR_CONNECTION_REFUSED` | API fora do ar ou `apiUrl` errada em `config.js` / `API_URL` |
-| Página em branco no Docker após trocar `API_URL` | Rebuild/recriar: `docker compose up --build --force-recreate` |
-| Volta ao login sozinho | Sessão expirada (a sessão fica em `sessionStorage`: fechar a aba também desloga) |
-| Estilo/scripts não carregam no Docker | A CSP só permite arquivos do próprio site e a `API_URL`; não adicione scripts/estilos de terceiros ou inline |
-| 429 ao logar várias vezes | Limite de 10 tentativas/min no login. Aguarde 1 minuto |
+| Console: `blocked by CORS policy` | A origem do frontend não está em `CORS_ORIGINS` no backend. |
+| `Failed to fetch` / `ERR_CONNECTION_REFUSED` | API indisponível ou `apiUrl` incorreta em `config.js`. |
+| Volta ao login sozinho | Sessão expirada; a sessão fica em `sessionStorage` e fechar a aba também desloga. |
+| Estilo/scripts não carregam | Confira os caminhos publicados e os cabeçalhos CSP na hospedagem. |
+| 429 ao logar várias vezes | Limite de tentativas de login do backend; aguarde antes de tentar novamente. |
 
 Acessibilidade: [docs/ACESSIBILIDADE.md](docs/ACESSIBILIDADE.md).
