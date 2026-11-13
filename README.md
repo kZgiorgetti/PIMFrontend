@@ -43,7 +43,6 @@ Não há framework, transpilação, bundler ou etapa de build.
 │   ├── pages/              # Lógica JavaScript de cada página
 │   └── services/           # Cliente HTTP e serviços da API
 ├── icons/                  # Ícones SVG
-├── docs/                   # Documentação complementar, incluindo acessibilidade
 ├── scripts/check.js        # Verificações estáticas do repositório
 ├── package.json            # Comandos npm do projeto
 └── package-lock.json       # Lockfile npm, sem dependências da aplicação
